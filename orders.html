@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Заказы</title>
+    <style>
+        body {
+            background-color: #FF69B4; /* Розовый фон для страницы */
+        }
+        .container {
+            margin-top: 20px;
+            display: flex; /* Используем flexbox для расположения колонок */
+        }
+        .order-header {
+            background-color: #e9ecef; /* Серый фон для заголовка */
+            padding: 10px;
+            border-radius: 10px; /* Округленные углы */
+            width: 100%; /* Занимаем всю ширину */
+        }
+        .cart {
+            background-image: url('https://www.kindpng.com/picc/m/56-563838_reusable-shopping-bag-gift-transparent-background-shopping-bag.png'); /* Новое изображение корзины */
+            background-size: cover; /* Масштабирование изображения */
+            background-repeat: no-repeat; /* Не повторять изображение */
+            background-position: center; /* Центрирование изображения */
+            padding: 20px;
+            border-radius: 15px; /* Округленные углы */
+            width: 250px; /* Фиксированная ширина для корзины */
+            margin-left: 20px; /* Отступ слева от основной колонки */
+            color: black; /* Цвет текста */
+            position: relative; /* Для псевдоэлементов */
+            height: 300px; /* Высота корзины */
+            display: flex; /* Flexbox для центрирования содержимого */
+            flex-direction: column; /* Вертикальное расположение */
+            justify-content: center; /* Центрирование по вертикали */
+            align-items: center; /* Центрирование по горизонтали */
+            text-align: center; /* Центрирование текста */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="order-header">
+            <h1 class="text-center">Ваши Заказы</h1>
+        </div>
+        <div class="cart">
+            <h4>Корзина</h4>
+            <p>Товары в вашей корзине:</p>
+            <ul id="cart-items">
+                <li id="cart-item">Корзина пуста</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Функция для обновления отображения корзины
+        function updateCart() {
+            const cartItemsList = document.getElementById('cart-items');
+            const cartItem = localStorage.getItem('cartItem'); // Получаем товар из localStorage
+            cartItemsList.innerHTML = ''; // Очищаем текущий список товаров в корзине
+
+            if (cartItem) {
+                cartItemsList.innerHTML = `<li>${cartItem} <button class="btn btn-danger btn-sm" onclick="removeFromCart()">Удалить</button></li>`;
+            } else {
+                cartItemsList.innerHTML = '<li>Корзина пуста</li>'; // Если корзина пуста
+            }
+        }
+
+        // Функция для удаления товара из корзины
+        function removeFromCart() {
+            localStorage.removeItem('cartItem'); // Очищаем корзину
+            updateCart(); // Обновляем отображение корзины
+            alert("Товар удален из корзины.");
+        }
+
+        // Обновляем корзину при загрузке страницы
+        updateCart();
+    </script>
+</body>
+</html>
