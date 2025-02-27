@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Контакты</title>
+    <style>
+        .container {
+            display: flex;
+            align-items: flex-start; /* Выравнивание по верхнему краю */
+            justify-content: space-between;
+        }
+        .form-container {
+            width: 50%;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #FF69B4;
+        }
+        .info-container {
+            width: 40%; /* Ширина текстового блока */
+            padding: 20px;
+            border: 1px solid #ccc; /* Граница вокруг блока */
+            border-radius: 10px; /* Округленные углы */
+            background-color: #f8f9fa; /* Цвет фона блока */
+        }
+        .btn-white {
+            background-color: white;
+            color: black;
+            border: 1px solid black;
+        }
+        .btn-white:hover {
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="form-container">
+            <h1 class="text-center">Контактная информация</h1>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="name">Имя</label>
+                    <input type="text" class="form-control" id="name" placeholder="Введите ваше имя" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Электронная почта</label>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="email" placeholder="Введите вашу почту" required>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Домен</button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="domainList">
+                                <a class="dropdown-item" href="#">@mail.ru</a>
+                                <a class="dropdown-item" href="#">@gmail.com</a>
+                                <a class="dropdown-item" href="#">@yahoo.com</a>
+                                <a class="dropdown-item" href="#">@hotmail.com</a>
+                                <a class="dropdown-item" href="#">@example.com</a>
+                                <a class="dropdown-item" href="#">@yandex.ru</a>
+                                <a class="dropdown-item" href="#">@outlook.com</a>
+                                <a class="dropdown-item" href="#">@icloud.com</a>
+                                <a class="dropdown-item" href="#">@protonmail.com</a>
+                                <a class="dropdown-item" href="#">@zoho.com</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="country">Гражданство</label>
+                    <select class="form-control" id="country" required>
+                        <option value="">Выберите страну</option>
+                        <option value="russia">Россия</option>
+                        <option value="usa">США</option>
+                        <option value="germany">Германия</option>
+                        <option value="france">Франция</option>
+                        <option value="uk">Великобритания</option>
+                        <option value="canada">Канада</option>
+                        <option value="australia">Австралия</option>
+                        <option value="brazil">Бразилия</option>
+                        <option value="india">Индия</option>
+                        <option value="china">Китай</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="pickupPoint">Пункт выдачи</label>
+                    <select class="form-control" id="pickupPoint" required>
+                        <option value="">Выберите пункт выдачи</option>
+                        <option value="moscow">Москва</option>
+                        <option value="spb">Санкт-Петербург</option>
+                        <option value="ny">Нью-Йорк</option>
+                        <option value="la">Лос-Анджелес</option>
+                        <option value="berlin">Берлин</option>
+                        <option value="munich">Мюнхен</option>
+                        <option value="paris">Париж</option>
+                        <option value="lyon">Лион</option>
+                        <option value="london">Лондон</option>
+                        <option value="manchester">Манчестер</option>
+                        <option value="toronto">Торонто</option>
+                        <option value="vancouver">Ванкувер</option>
+                        <option value="sydney">Сидней</option>
+                        <option value="melbourne">Мельбурн</option>
+                        <option value="rio">Рио-де-Жанейро</option>
+                        <option value="sao">Сан-Паулу</option>
+                        <option value="delhi">Дели</option>
+                        <option value="mumbai">Мумбаи</option>
+                        <option value="beijing">Пекин</option>
+                        <option value="shanghai">Шанхай</option>
+                        <option value="chicago">Чикаго</option>
+                        <option value="dallas">Даллас</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-white">Отправить</button>
+            </form>
+
+            <p id="message" class="text-center mt-3" style="display: none; font-weight: bold; font-size: 20px; color: green;">Готово!</p>
+        </div>
+        <div class="info-container">
+            <h2>Благодарим за покупку!</h2>
+            <p>Если у вас остались вопросы, не стесняйтесь обращаться к нам. Мы всегда рады помочь!</p>
+            <p>Вы можете заполнить форму слева, и мы свяжемся с вами в ближайшее время.</p>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const emailInput = document.getElementById("email");
+            const domainList = document.getElementById("domainList");
+            const form = document.getElementById("contactForm");
+            const message = document.getElementById("message");
+
+            // Подстановка домена при выборе
+            domainList.addEventListener("click", function (event) {
+                if (event.target.classList.contains("dropdown-item")) {
+                    let username = emailInput.value.split("@")[0]; // Оставляем только имя без домена
+                    emailInput.value = username + event.target.innerText;
+                }
+            });
+
+            // Показать "Готово!" при отправке
+            form.addEventListener("submit", function (event) {
+                event.preventDefault(); // Останавливаем стандартную отправку
+                message.style.display = "block"; // Показываем сообщение
+            });
+        });
+    </script>
+</body>
+</html>
