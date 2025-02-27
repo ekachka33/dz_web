@@ -1,35 +1,52 @@
+import logging
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import requests
+import os
 
-# Настройки сервера
-hostName = "localhost"
-serverPort = 8080
+logging.basicConfig(level=logging.DEBUG)
 
-# Ссылка на удалённый репозиторий с шаблоном
-REMOTE_TEMPLATE_URL = "https://raw.githubusercontent.com/user/repository/main/contacts.html"
-
-class MyServer(BaseHTTPRequestHandler):
+class MyHandler(BaseHTTPRequestHandler):
     def do_GET(self):
-        """Обрабатывает любой GET-запрос и возвращает страницу 'Контакты'"""
         try:
-            response = requests.get(REMOTE_TEMPLATE_URL)
-            response.raise_for_status()
-            content = response.text
-            self.send_response(200)
+            if self.path == '/':
+                # Обработка главной страницы
+                response = requests.get("https://raw.githubusercontent.com/ekachka33/dz_web/7cac1a973acb95fea3d91ff528a210e734b487a8/contact.html")
+                response.raise_for_status()
+                self.send_response(200)
+                self.send_header("Content-type", "text/html")
+                self.end_headers()
+                self.wfile.write(response.text.encode('utf-8'))
+            elif self.path == '/favicon.ico':
+                # Обработка favicon.ico
+                if os.path.exists("favicon.ico"):
+                    self.send_response(200)
+                    self.send_header("Content-type", "image/x-icon")
+                    self.end_headers()
+                    with open("favicon.ico", "rb") as f:
+                        self.wfile.write(f.read())
+                else:
+                    self.send_response(404)
+                    self.send_header("Content-type", "text/html")
+                    self.end_headers()
+                    self.wfile.write("favicon.ico не найден.".encode('utf-8'))
+            else:
+                # Для других путей
+                self.send_response(404)
+                self.send_header("Content-type", "text/html")
+                self.end_headers()
+                self.wfile.write("Страница не найдена.".encode('utf-8'))
+        except Exception as e:
+            logging.error(f"Ошибка при обработке запроса: {e}")
+            self.send_response(500)
             self.send_header("Content-type", "text/html")
             self.end_headers()
-            self.wfile.write(bytes(content, "utf-8"))
-        except requests.RequestException:
-            self.send_response(500)
-            self.end_headers()
-            self.wfile.write("Ошибка загрузки страницы".encode('utf-8'))
+            self.wfile.write(f"Произошла ошибка: {str(e)}".encode('utf-8'))
 
-if __name__ == "__main__":
-    webServer = HTTPServer((hostName, serverPort), MyServer)
-    print(f"Сервер запущен на http://{hostName}:{serverPort}")
-    try:
-        webServer.serve_forever()
-    except KeyboardInterrupt:
-        pass
-    webServer.server_close()
-    print("Сервер остановлен")
+def run():
+    server_address = ('', 8080)
+    httpd = HTTPServer(server_address, MyHandler)
+    logging.info('Сервер запущен на http://localhost:8080')
+    httpd.serve_forever()
+
+if __name__ == '__main__':
+    run()
